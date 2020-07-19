@@ -7,6 +7,22 @@ public class Project {
     private String description;
     private int time_commit;
     private int num_needed;
+    private int id;
+
+    public Project(String name, String description) {
+        this.name = name;
+        this.description = description;
+        time_commit = 0;
+        num_needed = 0;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
