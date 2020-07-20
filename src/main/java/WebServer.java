@@ -29,7 +29,9 @@ public class WebServer {
         post("/projects", (req, res) -> {
             String name = req.queryParams("projectname");
             String desc = req.queryParams("projectdesc");
-            projectDao.add(new Project(name, desc));
+            //TODO: Fix this
+            int pId = 0;
+            projectDao.add(new Project(name, desc, pId));
             res.redirect("/projects");
             return null;
         }, new HandlebarsTemplateEngine());

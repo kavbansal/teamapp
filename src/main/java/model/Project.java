@@ -8,12 +8,22 @@ public class Project {
     private int time_commit;
     private int num_needed;
     private int id;
+    private int ownerId;
 
-    public Project(String name, String description) {
+    public Project(String name, String description, int ownerId) {
         this.name = name;
         this.description = description;
+        this.ownerId = ownerId;
         time_commit = 0;
         num_needed = 0;
+    }
+
+    public int getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwner(int ownerId) {
+        this.ownerId = ownerId;
     }
 
     public int getId() {

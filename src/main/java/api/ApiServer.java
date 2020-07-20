@@ -88,8 +88,8 @@ public class ApiServer {
     }
 
     private static void initData(ProjectDao projectDao){
-        projectDao.add(new Project("TeamApp", "App to connect software development teams"));
-        projectDao.add(new Project("Prioriteams", "Priority-based scheduling app"));
+        projectDao.add(new Project("TeamApp", "App to connect software development teams", 0));
+        projectDao.add(new Project("Prioriteams", "Priority-based scheduling app", 0));
     }
 }
 
