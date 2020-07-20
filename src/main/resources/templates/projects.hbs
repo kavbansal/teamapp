@@ -1,5 +1,5 @@
 {{#partial "content" }}
-<h1>Projects</h1>
+    <h1 style="font-size: larger;">Projects</h1>
 
 <ul>
     {{#each projectList }}
@@ -9,9 +9,11 @@
 
 <form action="/projects" method="post">
     <input type="text" placeholder="project name" name="projectname"/>
-    <input type="text" placeholder="project desc" name="projectdesc"/>
+    <input type="text" placeholder="project description" name="projectdesc"/>
     <button>Submit</button>
 </form>
+<br>
+    <a href="projects">Home</a>
 {{/partial }}
 
 {{> base.hbs}}
