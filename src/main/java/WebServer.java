@@ -14,15 +14,26 @@ public class WebServer {
     public static void main(String[] args) {
         staticFiles.location("/public");
         get("/", (req, res) -> {
-            return new ModelAndView(null, "index.hbs");
+            res.removeCookie("personid");
+            Map<String, String> model = new HashMap<>();
+            return new ModelAndView(model, "index.hbs");
         }, new HandlebarsTemplateEngine());
 
+        post("/", (req, res) -> {
+            // Capture the provided username
+            String email = req.queryParams("email");
+            res.cookie("email", email);
+            // Redirect to main page
+            res.redirect("/projects");
+            return null;
+        });
 
         ProjectDao projectDao = new UnirestProjectDao();
 
         get("/projects", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             model.put("projectList", projectDao.findAll());
+            model.put("email", req.cookie("email"));
             return new ModelAndView(model, "projects.hbs");
         }, new HandlebarsTemplateEngine());
 

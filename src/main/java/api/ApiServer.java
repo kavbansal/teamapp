@@ -18,7 +18,10 @@ public class ApiServer {
         // Preparation!
         Sql2o sql2o = getSql2o();
         createProjectsTable(sql2o);
+        createPeopleTable(sql2o);
         ProjectDao projectDao = getProjectDao(sql2o);
+        PersonDao personDao = getPersonDao(sql2o);
+        initPeople(personDao);
         initData(projectDao);
 
         Javalin app = startServer();
@@ -82,14 +85,41 @@ public class ApiServer {
         }
     }
 
+    private static void createPeopleTable(Sql2o sql2o) {
+        dropPeopleTableIfExists(sql2o);
+        String sql = "CREATE TABLE IF NOT EXISTS People(" +
+                "id INTEGER PRIMARY KEY," +
+                "name VARCHAR(30) NOT NULL," +
+                "email VARCHAR(30) NOT NULL," +
+                "password VARCHAR(30) NOT NULL" +
+                ");";
+        try (Connection conn = sql2o.open()) {
+            conn.createQuery(sql).executeUpdate();
+        }
+    }
+
+    private static void dropPeopleTableIfExists(Sql2o sql2o) {
+        String sql = "DROP TABLE IF EXISTS People;";
+        try (Connection conn = sql2o.open()) {
+            conn.createQuery(sql).executeUpdate();
+        }
+    }
 
     private static ProjectDao getProjectDao(Sql2o sql2o) {
         return new Sql2oProjectDao(sql2o);
     }
 
-    private static void initData(ProjectDao projectDao){
+    private static PersonDao getPersonDao(Sql2o sql2o) {
+        return new Sql2oPersonDao(sql2o);
+    }
+
+    private static void initData(ProjectDao projectDao) {
         projectDao.add(new Project("TeamApp", "App to connect software development teams", 0));
         projectDao.add(new Project("Prioriteams", "Priority-based scheduling app", 0));
+    }
+
+    private static void initPeople(PersonDao personDao) {
+        personDao.add(new Person("KavanBansal", "kbansal2@jhu.edu", "KavanB123", 0, 22));
     }
 }
 

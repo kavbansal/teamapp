@@ -1,6 +1,10 @@
 {{#partial "content" }}
 <h1>Welcome to TeamApp!</h1>
-<p>View <a href="projects">projects</a></p>
+<form action="/" method="post">
+    <input type="text" placeholder="e-mail" name="email"/>
+    <input type="text" placeholder="password" name="password"/>
+    <button>Sign in</button>
+</form>
 {{/partial }}
 
 {{> base.hbs }}

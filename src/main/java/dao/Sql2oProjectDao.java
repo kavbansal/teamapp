@@ -25,7 +25,7 @@ public class Sql2oProjectDao implements ProjectDao {
                     .getKey();
             project.setId(id);
         } catch (Sql2oException ex) {
-            throw new DaoException("Unable to add a course.", ex);
+            throw new DaoException("Unable to add a project.", ex);
         }
     }
 
