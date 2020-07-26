@@ -18,6 +18,14 @@ public class Project {
         num_needed = 0;
     }
 
+    public Project(String name, String description, int time_commit, int num_needed, int ownerId) {
+        this.name = name;
+        this.description = description;
+        this.time_commit = time_commit;
+        this.num_needed = num_needed;
+        this.ownerId = ownerId;
+    }
+
     public int getOwnerId() {
         return ownerId;
     }

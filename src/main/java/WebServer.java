@@ -34,7 +34,7 @@ public class WebServer {
                 res.redirect("/projects");
             }
             return null;
-        });
+        }, new HandlebarsTemplateEngine());
 
         get("/projects", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
@@ -45,12 +45,20 @@ public class WebServer {
             return new ModelAndView(model, "projects.hbs");
         }, new HandlebarsTemplateEngine());
 
-        post("/projects", (req, res) -> {
+        get("/create", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            model.put("email", req.cookie("email"));
+            return new ModelAndView(model, "create.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        post("/create", (req, res) -> {
             String name = req.queryParams("projectname");
             String desc = req.queryParams("projectdesc");
-            //TODO: Fix this
-            int pId = 0;
-            projectDao.add(new Project(name, desc, pId));
+            int num_needed = Integer.parseInt(req.queryParams("num_needed"));
+            int time_commit = Integer.parseInt(req.queryParams("time_commit"));
+            List<Person> myPerson = personDao.findPersonByEmail(req.cookie("email"));
+            int pId = myPerson.get(0).getId();
+            projectDao.add(new Project(name, desc, time_commit, num_needed, pId));
             res.redirect("/projects");
             return null;
         }, new HandlebarsTemplateEngine());

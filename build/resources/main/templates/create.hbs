@@ -1,0 +1,17 @@
+{{#partial "content" }}
+
+    <form action="/create" method="post">
+        <input type="text" placeholder="project name" name="projectname"/>
+        <input type="text" placeholder="project description" name="projectdesc"/>
+        <br>
+        <input type="number" placeholder="weekly time commitment (hours)" name="time_commit"/>
+        <input type="number" placeholder="number of people needed" name="num_needed"/>
+        <button>Submit</button>
+    </form>
+    <br>
+    <a href="/">Sign Out</a>
+    <br>
+    <a href="/projects">View Projects</a>
+{{/partial }}
+
+{{> base.hbs}}

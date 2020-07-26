@@ -7,16 +7,16 @@
 
 <ul>
     {{#each projectList }}
-        <li>{{ name }}: {{ description }}</li>
+        <li>{{ name }}: {{ description }} <br>
+            Looking for {{ num_needed }} people willing to work {{time_commit}} hours per week<br>
+            Posted by user {{ownerId}}
+        </li>
     {{/each }}
 </ul>
 
-<form action="/projects" method="post">
-    <input type="text" placeholder="project name" name="projectname"/>
-    <input type="text" placeholder="project description" name="projectdesc"/>
-    <button>Submit</button>
-</form>
 <br>
+    <a href="/create">Create a Project</a>
+    <br>
     <a href="/">Sign Out</a>
 {{/partial }}
 

@@ -78,7 +78,10 @@ public class ApiServer {
         String sql = "CREATE TABLE IF NOT EXISTS Projects(" +
                 "id INTEGER PRIMARY KEY," +
                 "name VARCHAR(30) NOT NULL," +
-                "description VARCHAR(100)" +
+                "description VARCHAR(100)," +
+                "ownerId INTEGER," +
+                "num_needed INTEGER," +
+                "time_commit INTEGER" +
                 ");";
         try (Connection conn = sql2o.open()) {
             conn.createQuery(sql).executeUpdate();
@@ -121,8 +124,8 @@ public class ApiServer {
     }
 
     private static void initData(ProjectDao projectDao) {
-        projectDao.add(new Project("TeamApp", "App to connect software development teams", 0));
-        projectDao.add(new Project("Prioriteams", "Priority-based scheduling app", 0));
+        projectDao.add(new Project("TeamApp", "App to connect software development teams", 1));
+        projectDao.add(new Project("Prioriteams", "Priority-based scheduling app", 1));
     }
 
     private static void initPeople(PersonDao personDao) {

@@ -18,7 +18,7 @@ public class Sql2oProjectDao implements ProjectDao {
     @Override
     public void add(Project project) throws DaoException {
         try (Connection conn = sql2o.open()) {
-            String sql = "INSERT INTO Projects(name, description) VALUES (:name, :description);";
+            String sql = "INSERT INTO Projects(name, description, ownerId, time_commit, num_needed) VALUES (:name, :description, :ownerId, :time_commit, :num_needed);";
             int id = (int) conn.createQuery(sql)
                     .bind(project)
                     .executeUpdate()
