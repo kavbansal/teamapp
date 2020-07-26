@@ -19,7 +19,7 @@ public class UnirestPersonDao implements PersonDao {
     @Override
     public void add(Person person) {
         try {
-            Unirest.post(BASE_URL + "/projects").body(gson.toJson(person)).asJson();
+            Unirest.post(BASE_URL + "/person").body(gson.toJson(person)).asJson();
         } catch (UnirestException e) {
             // TODO deal with errors
             e.printStackTrace();
@@ -30,11 +30,25 @@ public class UnirestPersonDao implements PersonDao {
     public List<Person> findAll() {
         try {
             HttpResponse<JsonNode> jsonResponse =
-                    Unirest.get(BASE_URL + "/projects").asJson();
-            Person[] projects = gson.fromJson(jsonResponse.getBody().toString(), Person[].class);
-            return new ArrayList<>(Arrays.asList(projects));
+                    Unirest.get(BASE_URL + "/person").asJson();
+            Person[] people = gson.fromJson(jsonResponse.getBody().toString(), Person[].class);
+            return new ArrayList<>(Arrays.asList(people));
         } catch (UnirestException e) {
             // TODO deal with errors
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Person> findPersonByEmail(String email) {
+        final String URL = BASE_URL + "Person" + "/" + email;
+        HttpResponse<JsonNode> jsonResponse = null;
+        try {
+            jsonResponse = Unirest.get(URL).asJson();
+            Person[] people = gson.fromJson(jsonResponse.getBody().toString(),Person[].class);
+            return new ArrayList<>(Arrays.asList(people));
+        } catch (UnirestException e) {
             e.printStackTrace();
         }
         return null;

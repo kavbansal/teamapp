@@ -13,7 +13,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+
 public class ApiServer {
+
+    private static Javalin app;
+
     public static void main(String[] args) {
         // Preparation!
         Sql2o sql2o = getSql2o();
@@ -24,7 +29,7 @@ public class ApiServer {
         initPeople(personDao);
         initData(projectDao);
 
-        Javalin app = startServer();
+        app = startServer();
         app.get("/", ctx -> ctx.result("Welcome to CourseReVU App"));
         // TODO: update the code below to actually show a list of courses!
 
@@ -47,6 +52,8 @@ public class ApiServer {
             ctx.contentType("application/json");
             ctx.status(200);
         });
+
+        getPersonByEmail(personDao);
     }
 
     private static Javalin startServer() {
@@ -120,6 +127,15 @@ public class ApiServer {
 
     private static void initPeople(PersonDao personDao) {
         personDao.add(new Person("KavanBansal", "kbansal2@jhu.edu", "KavanB123", 0, 22));
+    }
+
+    private static void getPersonByEmail(PersonDao pDao) {
+        app.get("/Person/:email",ctx->{
+            String email = ctx.pathParam("email");
+            List<Person> person = pDao.findPersonByEmail(email);
+            ctx.json(person);
+            ctx.status(200);
+        });
     }
 }
 

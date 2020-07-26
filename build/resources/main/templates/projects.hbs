@@ -1,6 +1,8 @@
 {{#partial "content" }}
-    <h1 style="font-size: larger;">Welcome {{ email }}!</h1>
 
+    {{#each personName }}
+    <h1 style="font-size: larger;">Welcome {{ name }}!</h1>
+    {{/each }}
     <h1 style="font-size: larger;">Projects</h1>
 
 <ul>

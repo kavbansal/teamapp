@@ -36,4 +36,12 @@ public class Sql2oPersonDao implements PersonDao {
             return conn.createQuery(sql).executeAndFetch(Person.class);
         }
     }
+
+    @Override
+    public List<Person> findPersonByEmail(String email) {
+        String sql="Select * From People where email=:email";
+        try (Connection conn = sql2o.open()) {
+            return conn.createQuery(sql).addParameter("email",email).executeAndFetch(Person.class);
+        }
+    }
 }
